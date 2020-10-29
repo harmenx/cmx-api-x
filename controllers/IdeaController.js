@@ -20,7 +20,7 @@ const getIdeas = async (req, res) => {
   const page = req.query.page || 1;
   const pageSize = 10;
   const pageOffset = (page * pageSize) - pageSize;
-  const ideas = await ideaDao.getIdeas(1, pageOffset, pageSize);
+  const ideas = await ideaDao.getIdeas(req.decoded.userEmail, pageOffset, pageSize);
   res.status(200).send(ideas);
 };
 
