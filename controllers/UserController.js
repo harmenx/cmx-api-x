@@ -12,7 +12,7 @@ const register = async (req, res) => {
   const foundUser = await userDao.findUserByEmail(req.body.email);
   if (!foundUser) {
     if (!passwordRegex.test(req.body.password)) {
-      res.status(401).send({ message: 'Unauthorized' });
+      res.status(401).send({ message: 'Invalid Password' });
     } else {
       const salt = await bcrypt.genSalt(saltRounds);
       req.body.password = await bcrypt.hash(req.body.password, salt);

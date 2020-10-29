@@ -4,10 +4,16 @@ const postIdea = async (req, res) => {
   req.body.creator = req.decoded.userEmail;
   req.body.average = (req.body.impact + req.body.ease +  req.body.confidence ) / 3.
   const idea = await ideaDao.createIdea(req.body);
-  idea.__v = undefined;
-  idea.creator = undefined;
-  idea._id = undefined;
-  res.status(200).send(idea);
+  if(idea){
+    idea.__v = undefined;
+    idea.creator = undefined;
+    idea._id = undefined;
+    idea.updatedAt = undefined;
+    res.status(200).send(idea);
+  }else{
+    res.status(500).send("Error creating the idea");
+  }
+
 };
 
 const deleteIdea = async (req, res) => {
@@ -30,6 +36,7 @@ const updateIdea = async (req, res) => {
   updatedIdea.__v = undefined;
   updatedIdea.creator = undefined;
   updatedIdea._id = undefined;
+  updatedIdea.updatedAt = undefined;
   res.status(200).send(updatedIdea);
 };
 
