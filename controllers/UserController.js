@@ -6,7 +6,7 @@ const authService = require('../services/authService');
 
 const saltRounds = 10;
 
-const passwordRegex = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/);
+const passwordRegex = RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
 
 const register = async (req, res) => {
   const foundUser = await userDao.findUserByEmail(req.body.email);
