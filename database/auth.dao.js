@@ -1,27 +1,39 @@
 const mongoose = require('mongoose');
 
 const refreshToken = mongoose.model('RefreshToken', new mongoose.Schema({
-    token: { type: String, required: true },
-    userEmail: { type: String, required: true }
+  token: { type: String, required: true },
+  userEmail: { type: String, required: true },
 }));
 
-getRefreshToken = async (id) => {
-    let rToken = await refreshToken.findOne({ token: id });
+const getRefreshToken = async (id) => {
+  try {
+    const rToken = await refreshToken.findOne({ token: id });
     return rToken;
-}
+  } catch (e) {
+    return false;
+  }
+};
 
-removeRefreshToken = async (id) => {
+const removeRefreshToken = async (id) => {
+  try {
     await refreshToken.findOneAndDelete({ token: id });
     return true;
-}
+  } catch (e) {
+    return false;
+  }
+};
 
-createRefreshToken = async (data) => {
-    let rToken = await refreshToken.create(data);
+const createRefreshToken = async (data) => {
+  try {
+    const rToken = await refreshToken.create(data);
     return rToken.token;
-}
+  } catch (e) {
+    return false;
+  }
+};
 
 module.exports = {
-    getRefreshToken,
-    createRefreshToken,
-    removeRefreshToken
-}
+  getRefreshToken,
+  createRefreshToken,
+  removeRefreshToken,
+};
