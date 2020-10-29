@@ -14,7 +14,7 @@ const createUser = async (body) => {
     });
     return user;
   } catch (e) {
-    return false;
+    return undefined;
   }
 };
 
@@ -23,7 +23,7 @@ const findUserByEmail = async (email) => {
     const user = User.findOne({ email });
     return user;
   } catch (e) {
-    return false;
+    return undefined;
   }
 };
 

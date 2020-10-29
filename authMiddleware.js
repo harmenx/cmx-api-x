@@ -1,23 +1,23 @@
-
 const jwt = require('jsonwebtoken');
+
 const authorize = (req, res, next) => {
-    const token = req.headers['x-access-token'];
-    const secret = process.env.secret;
+  const token = req.headers['x-access-token'];
+  const { secret } = process.env;
 
-    if (token) {
-        return jwt.verify(token, secret, (err, decoded) => {
-            if (err) {
-                return res.status(401).send({ message: 'Invalid Token' });
-            }
-            Object.defineProperty(req, 'decoded', {
-                value: decoded
-            });
+  if (token) {
+    return jwt.verify(token, secret, (err, decoded) => {
+      if (err) {
+        return res.status(401).send({ message: 'Invalid Token' });
+      }
+      Object.defineProperty(req, 'decoded', {
+        value: decoded,
+      });
 
-            return next();
-        });
-    }
-    return res.status(403).send({
-        message: 'Token is required'
+      return next();
     });
-}
-module.exports = {authorize}
+  }
+  return res.status(403).send({
+    message: 'Token is required',
+  });
+};
+module.exports = { authorize };

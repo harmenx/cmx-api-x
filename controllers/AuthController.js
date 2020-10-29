@@ -23,7 +23,7 @@ const loginUser = async (req, res) => {
       const refToken = await authService.createRefreshToken(user.email);
       res.status(200).send({ refresh_token: refToken, jwt: userJwt });
     } else {
-      res.status(404).send('Wrong Password');
+      res.status(401).send('Unauthorized');
     }
   } else {
     res.status(404).send();
@@ -36,7 +36,7 @@ const logoutUser = async (req, res) => {
     await authDao.removeRefreshToken(refToken.token);
     res.status(204).send();
   } else {
-    res.status(400).send('Does not exist');
+    res.status(404).send('User does not exist');
   }
 };
 

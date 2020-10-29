@@ -14,7 +14,7 @@ const getIdeas = async (email, pageIndex, pageSize) => {
       .skip(pageIndex).limit(pageSize);
     return ideas;
   } catch (e) {
-    return false;
+    return undefined;
   }
 };
 
@@ -23,7 +23,7 @@ const createIdea = async (body) => {
     const idea = await Idea.create(body);
     return idea;
   } catch (e) {
-    return false;
+    return undefined;
   }
 };
 
@@ -32,7 +32,7 @@ const updateIdea = async (id, body) => {
     const updatedIdea = await Idea.findByIdAndUpdate({ _id: id }, body);
     return updatedIdea;
   } catch (e) {
-    return false;
+    return undefined;
   }
 };
 
@@ -41,7 +41,7 @@ const deleteIdea = async (id) => {
     await Idea.findOneAndDelete({ _id: id });
     return true;
   } catch (e) {
-    return false;
+    return undefined;
   }
 };
 

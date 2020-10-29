@@ -10,7 +10,7 @@ const getRefreshToken = async (id) => {
     const rToken = await refreshToken.findOne({ token: id });
     return rToken;
   } catch (e) {
-    return false;
+    return undefined;
   }
 };
 
@@ -19,7 +19,7 @@ const removeRefreshToken = async (id) => {
     await refreshToken.findOneAndDelete({ token: id });
     return true;
   } catch (e) {
-    return false;
+    return undefined;
   }
 };
 
@@ -28,7 +28,7 @@ const createRefreshToken = async (data) => {
     const rToken = await refreshToken.create(data);
     return rToken.token;
   } catch (e) {
-    return false;
+    return undefined;
   }
 };
 
