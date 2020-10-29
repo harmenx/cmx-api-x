@@ -6,7 +6,7 @@ const Idea = mongoose.model('Idea', new mongoose.Schema({
   ease: { type: Number, required: true },
   confidence: { type: Number, required: true },
   creator: { type: String, required: true },
-  average:  { type: Number, required: true },
+  average_score:  { type: Number, required: true },
 },
 {
   timestamps: true
@@ -14,7 +14,7 @@ const Idea = mongoose.model('Idea', new mongoose.Schema({
 
 const getIdeas = async (email, pageIndex, pageSize) => {
   try {
-    const ideas = await Idea.find({ creator: email }).sort({ average: -1 })
+    const ideas = await Idea.find({ creator: email }).sort({ average_score: -1 })
       .skip(pageIndex).limit(pageSize);
     ideas.forEach(idea=>{
       idea["__v"] = undefined;
