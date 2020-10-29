@@ -2,6 +2,7 @@ const ideaDao = require('../database/idea.dao');
 
 const postIdea = async (req, res) => {
   req.body.creator = req.decoded.userEmail;
+  idea.body.average = (req.body.impact + req.body.ease +  req.body.confidence ) / 3.
   const idea = await ideaDao.createIdea(req.body);
   idea.__v = undefined;
   idea.creator = undefined;
@@ -24,6 +25,7 @@ const getIdeas = async (req, res) => {
 };
 
 const updateIdea = async (req, res) => {
+  idea.body.average = (req.body.impact + req.body.ease +  req.body.confidence ) / 3.
   const updatedIdea = await ideaDao.updateIdea(req.params.id, req.body);
   updatedIdea.__v = undefined;
   updatedIdea.creator = undefined;

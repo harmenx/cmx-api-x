@@ -10,7 +10,7 @@ const User = mongoose.model('User', new mongoose.Schema({
 const createUser = async (body) => {
   try {
     const user = await User.create({
-      name: body.email, email: body.email, avatar_url: body.avatar_url, password: body.password,
+      name: body.name, email: body.email, avatar_url: body.avatar_url, password: body.password,
     });
     return user;
   } catch (e) {
