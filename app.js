@@ -49,7 +49,12 @@ app.post('/users', register);
 app.get('*', function(req, res){
     res.status(404).send("No such route");
 });
-
+app.put('*', function(req, res){
+    res.status(404).send("No such route");
+});
+app.delete('*', function(req, res){
+    res.status(404).send("No such route");
+});
 const port = process.env.PORT || '5000';
 app.set('port', port);
 
