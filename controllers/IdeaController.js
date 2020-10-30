@@ -17,9 +17,13 @@ const postIdea = async (req, res) => {
 };
 
 const deleteIdea = async (req, res) => {
-  const { id } = req.params;
-  await ideaDao.deleteIdea(id);
-  res.status(204).send();
+  if(!req.params.id){
+    res.status(404).send();
+  }else{
+    const { id } = req.params;
+    await ideaDao.deleteIdea(id);
+    res.status(204).send();
+  }
 };
 
 const getIdeas = async (req, res) => {
