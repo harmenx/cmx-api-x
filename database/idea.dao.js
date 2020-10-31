@@ -12,12 +12,8 @@ const Idea = mongoose.model('Idea', new mongoose.Schema({
 
 const getIdeas = async (email, pageIndex, pageSize) => {
   try {
-    const ideas = await Idea.find({ creator: email }).sort({ average_score: 1 })
+    const ideas = await Idea.find({ creator: email }).sort({ average_score: -1 })
       .skip(pageIndex).limit(pageSize);
-    ideas.forEach(idea=>{
-      idea["__v"] = undefined;
-      idea["creator"] = undefined;
-    })
     return ideas;
   } catch (e) {
     return undefined;
@@ -36,10 +32,6 @@ const createIdea = async (body) => {
 const updateIdea = async (id, body) => {
   try {
     const updatedIdea = await Idea.findByIdAndUpdate({ _id: id }, body);
-    if(updatedIdea){
-      updatedIdea["__v"] = undefined;
-      updatedIdea["creator"] = undefined;
-    }
     return updatedIdea;
   } catch (e) {
     return undefined;

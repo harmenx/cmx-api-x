@@ -9,7 +9,6 @@ const postIdea = async (req, res) => {
     idea.__v = undefined;
     idea.creator = undefined;
     idea._id = undefined;
-    idea.updatedAt = undefined;
     res.status(200).send(idea);
   } else {
     res.status(500).send("Error creating the idea");
@@ -32,6 +31,10 @@ const getIdeas = async (req, res) => {
   const pageSize = 10;
   const pageOffset = (page * pageSize) - pageSize;
   const ideas = await ideaDao.getIdeas(req.decoded.userEmail, pageOffset, pageSize);
+  ideas.forEach(idea=>{
+    idea["__v"] = undefined;
+    idea["creator"] = undefined;
+  })
   res.status(200).send(ideas);
 };
 
@@ -45,7 +48,6 @@ const updateIdea = async (req, res) => {
     updatedIdea.__v = undefined;
     updatedIdea.creator = undefined;
     updatedIdea._id = undefined;
-    updatedIdea.updatedAt = undefined;
     res.status(200).send(updatedIdea);
   }
 };
