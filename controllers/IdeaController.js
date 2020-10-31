@@ -2,24 +2,25 @@ const ideaDao = require('../database/idea.dao');
 
 const postIdea = async (req, res) => {
   req.body.creator = req.decoded.userEmail;
-  req.body.average_score = (req.body.impact + req.body.ease +  req.body.confidence ) / 3.
+  req.body.average_score = (req.body.impact + req.body.ease + req.body.confidence) / 3.
+  req.body.created_at = Date.now();
   const idea = await ideaDao.createIdea(req.body);
-  if(idea){
+  if (idea) {
     idea.__v = undefined;
     idea.creator = undefined;
     idea._id = undefined;
     idea.updatedAt = undefined;
     res.status(200).send(idea);
-  }else{
+  } else {
     res.status(500).send("Error creating the idea");
   }
 
 };
 
 const deleteIdea = async (req, res) => {
-  if(!req.params.id){
+  if (!req.params.id) {
     res.status(404).send();
-  }else{
+  } else {
     const { id } = req.params;
     await ideaDao.deleteIdea(id);
     res.status(204).send();
@@ -35,11 +36,11 @@ const getIdeas = async (req, res) => {
 };
 
 const updateIdea = async (req, res) => {
-  console.log("Req",req.params)
-  if(!req.params.id){
+  console.log("Req", req.params)
+  if (!req.params.id) {
     res.status(404).send();
-  }else{
-    req.body.average_score = (req.body.impact + req.body.ease +  req.body.confidence ) / 3.
+  } else {
+    req.body.average_score = (req.body.impact + req.body.ease + req.body.confidence) / 3.
     const updatedIdea = await ideaDao.updateIdea(req.params.id, req.body);
     updatedIdea.__v = undefined;
     updatedIdea.creator = undefined;

@@ -7,9 +7,7 @@ const Idea = mongoose.model('Idea', new mongoose.Schema({
   confidence: { type: Number, required: true },
   creator: { type: String, required: true },
   average_score:  { type: Number, required: true },
-},
-{
-  timestamps: true
+  created_at: {type:Number, required: TextTrackCueList}
 }));
 
 const getIdeas = async (email, pageIndex, pageSize) => {
@@ -19,7 +17,6 @@ const getIdeas = async (email, pageIndex, pageSize) => {
     ideas.forEach(idea=>{
       idea["__v"] = undefined;
       idea["creator"] = undefined;
-      idea["updatedAt"] = undefined;
     })
     return ideas;
   } catch (e) {
@@ -32,7 +29,6 @@ const createIdea = async (body) => {
     const idea = await Idea.create(body);
     return idea;
   } catch (e) {
-    console.log(e);
     return undefined;
   }
 };
@@ -40,6 +36,10 @@ const createIdea = async (body) => {
 const updateIdea = async (id, body) => {
   try {
     const updatedIdea = await Idea.findByIdAndUpdate({ _id: id }, body);
+    if(updatedIdea){
+      updatedIdea["__v"] = undefined;
+      updatedIdea["creator"] = undefined;
+    }
     return updatedIdea;
   } catch (e) {
     return undefined;
