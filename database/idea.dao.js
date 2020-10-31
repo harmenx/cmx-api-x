@@ -7,7 +7,7 @@ const Idea = mongoose.model('Idea', new mongoose.Schema({
   confidence: { type: Number, required: true },
   creator: { type: String, required: true },
   average_score:  { type: Number, required: true },
-  created_at: {type:Number, required: TextTrackCueList}
+  created_at: {type:Number, required: Number}
 }));
 
 const getIdeas = async (email, pageIndex, pageSize) => {
