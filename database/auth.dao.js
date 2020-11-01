@@ -7,8 +7,7 @@ const refreshToken = mongoose.model('RefreshToken', new mongoose.Schema({
 
 const getRefreshToken = async (id) => {
   try {
-    const rToken = await refreshToken.findOne({ token: id });
-    return rToken;
+    return await refreshToken.findOne({ token: id });
   } catch (e) {
     return undefined;
   }
@@ -25,8 +24,7 @@ const removeRefreshToken = async (id) => {
 
 const createRefreshToken = async (data) => {
   try {
-    const rToken = await refreshToken.create(data);
-    return rToken.token;
+    return (await refreshToken.create(data)).token;
   } catch (e) {
     return undefined;
   }

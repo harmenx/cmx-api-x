@@ -6,9 +6,18 @@ const Idea = mongoose.model('Idea', new mongoose.Schema({
   ease: { type: Number, required: true },
   confidence: { type: Number, required: true },
   creator: { type: String, required: true },
-  average_score:  { type: Number, required: true },
-  created_at: {type:Number, required: Number}
+  average_score: { type: Number, required: true },
+  created_at: { type: Number, required: Number },
 }));
+
+const getIdea = async (id) => {
+  try {
+    const idea = await Idea.findById(id);
+    return idea;
+  } catch (e) {
+    return undefined;
+  }
+};
 
 const getIdeas = async (email, pageIndex, pageSize) => {
   try {
@@ -22,8 +31,7 @@ const getIdeas = async (email, pageIndex, pageSize) => {
 
 const createIdea = async (body) => {
   try {
-    const idea = await Idea.create(body);
-    return idea;
+    return await Idea.create(body);
   } catch (e) {
     return undefined;
   }
@@ -31,8 +39,7 @@ const createIdea = async (body) => {
 
 const updateIdea = async (id, body) => {
   try {
-    const updatedIdea = await Idea.findByIdAndUpdate({ _id: id }, body);
-    return updatedIdea;
+    return await Idea.findByIdAndUpdate({ _id: id }, body);
   } catch (e) {
     return undefined;
   }
@@ -40,14 +47,14 @@ const updateIdea = async (id, body) => {
 
 const deleteIdea = async (id) => {
   try {
-    await Idea.findOneAndDelete({ _id: id });
-    return true;
+    return await Idea.findOneAndDelete({ _id: id });
   } catch (e) {
     return undefined;
   }
 };
 
 module.exports = {
+  getIdea,
   getIdeas,
   createIdea,
   updateIdea,
