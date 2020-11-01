@@ -45,7 +45,6 @@ const getIdeas = async (req, res) => {
   const ideas = await ideaDao.getIdeas(req.decoded.userEmail, pageOffset, pageSize);
   if(ideas){
     let finalIdeas = ideas.map(function(idea) {
-      console.log(idea);
       return  {
         id: idea._id,
         ...idea._doc,
@@ -66,7 +65,6 @@ const updateIdea = async (req, res) => {
   } else {
     const { id } = req.params;
     const idea = await ideaDao.getIdea(id);
-    console.log(idea);
     if (idea) {
       if (idea.creator === req.decoded.userEmail) {
         req.body.average_score = (req.body.impact + req.body.ease + req.body.confidence) / 3.0;

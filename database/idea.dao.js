@@ -39,7 +39,9 @@ const createIdea = async (body) => {
 
 const updateIdea = async (id, body) => {
   try {
-    return await Idea.findByIdAndUpdate({ _id: id }, body);
+    await Idea.findByIdAndUpdate({ _id: id }, body);
+    let newIdea = getIdea(id);
+    return newIdea;
   } catch (e) {
     return undefined;
   }
