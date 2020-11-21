@@ -2,14 +2,14 @@
   "name": "arc-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/mocha",
     "start": "node app.js",
     "lint": "eslint */*.js",
     "lint:fix": "eslint controllers/*.js --fix"
   },
-  "author": "",
+  "author": "Harmen Dark",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -22,14 +22,17 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.11",
     "morgan": "^1.10.0",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "supertest": "^6.0.0"
   },
   "engines": {
     "node": "12.x"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "eslint": "^7.12.1",
     "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.1"
+    "eslint-plugin-import": "^2.22.1",
+    "mocha": "^8.2.0"
   }
 }
